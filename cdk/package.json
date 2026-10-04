@@ -1,0 +1,17 @@
+{
+  "name": "dynamodb-vector-search-defect-inspection-cdk",
+  "version": "0.1.0",
+  "private": true,
+  "bin": { "app": "bin/app.js" },
+  "scripts": { "cdk": "cdk" },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "aws-cdk": "2.1144.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.6.0"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.272.0",
+    "constructs": "^10.0.0"
+  }
+}

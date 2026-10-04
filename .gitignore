@@ -1,0 +1,14 @@
+# dependencies / build
+node_modules/
+cdk.out/
+*.js
+*.d.ts
+cdk.context.json
+
+# dataset & local results (download with scripts/download-dataset.sh)
+data/
+
+# env / OS
+.env
+.env.*
+.DS_Store
