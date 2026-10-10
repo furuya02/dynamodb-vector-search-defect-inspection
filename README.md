@@ -54,17 +54,14 @@ Enable model access for Amazon Titan Multimodal Embeddings G1 in us-east-1.
 cd scripts
 pnpm install
 
-# 1. Download the dataset (Duck Visual Inspection Dataset / CC BY 4.0) into ../data/duck
-./download-dataset.sh
-
-# 2. Register good-product images (train_ok, 27 images) as past inspection records
+# 1. Register good-product images (train_ok, 27 images) as past inspection records
 BUCKET_NAME=dynamodb-vector-search-defect-inspection-<ACCOUNT_ID> pnpm exec tsx register.ts
 
-# 3. Decide the threshold and judge test_ok (30) and test_ng (10)
+# 2. Decide the threshold and judge test_ok (30) and test_ng (10)
 pnpm exec tsx evaluate.ts euclid-1024          # no lighting filter
 pnpm exec tsx evaluate.ts euclid-1024 same     # compare only with records under the same lighting
 
-# 4. Inspect one image (anomaly score + nearest good-product records)
+# 3. Inspect one image (anomaly score + nearest good-product records)
 pnpm exec tsx inspect.ts ../data/duck/test_ng/hard/ng_hard_18.png
 
 # Verification A: dimensions and item size / Verification B: EUCLIDEAN vs COSINE
@@ -87,6 +84,9 @@ pnpm exec cdk destroy
 If the log groups of the S3 auto-delete Lambda (`/aws/lambda/DynamoDbVectorSearchDefec-CustomS3AutoDeleteObject-*`) remain, delete them as well.
 
 ## Dataset
+
+Included in `data/duck/` (67 images, 900x900 PNG). See [data/duck/README.md](data/duck/README.md) for details.
+
 
 Shinichi Hirauchi, "Duck Visual Inspection Dataset", 2026.
 https://github.com/furuya02/sagemaker-embedding-ft-visual-inspection
