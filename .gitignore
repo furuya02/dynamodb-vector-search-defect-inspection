@@ -5,8 +5,9 @@ cdk.out/
 *.d.ts
 cdk.context.json
 
-# dataset & local results (download with scripts/download-dataset.sh)
-data/
+# local results (embedding cache / thresholds / results). The dataset itself (data/duck) is committed
+data/*
+!data/duck/
 
 # env / OS
 .env

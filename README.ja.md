@@ -54,17 +54,14 @@ Bedrock のモデルアクセスで、us-east-1 の Amazon Titan Multimodal Embe
 cd scripts
 pnpm install
 
-# 1. データセット（Duck Visual Inspection Dataset / CC BY 4.0）を ../data/duck に取得
-./download-dataset.sh
-
-# 2. 良品画像（train_ok 27 枚）を「過去の良品検査記録」として登録
+# 1. 良品画像（train_ok 27 枚）を「過去の良品検査記録」として登録
 BUCKET_NAME=dynamodb-vector-search-defect-inspection-<ACCOUNT_ID> pnpm exec tsx register.ts
 
-# 3. しきい値を決めて、test_ok（30 枚）と test_ng（10 枚）を判定
+# 2. しきい値を決めて、test_ok（30 枚）と test_ng（10 枚）を判定
 pnpm exec tsx evaluate.ts euclid-1024          # 照明フィルタ無し
 pnpm exec tsx evaluate.ts euclid-1024 same     # 同じ照明の良品記録だけと比較
 
-# 4. 1 枚を検査（異常スコア + 最も近い良品記録を表示）
+# 3. 1 枚を検査（異常スコア + 最も近い良品記録を表示）
 pnpm exec tsx inspect.ts ../data/duck/test_ng/hard/ng_hard_18.png
 
 # 検証A: 次元数とアイテムサイズ / 検証B: EUCLIDEAN と COSINE
@@ -87,6 +84,9 @@ pnpm exec cdk destroy
 S3 の自動削除用 Lambda のロググループ（`/aws/lambda/DynamoDbVectorSearchDefec-CustomS3AutoDeleteObject-*`）が残る場合は、あわせて削除してください。
 
 ## データセット
+
+`data/duck/` に同梱しています（67 枚、900×900 PNG）。詳細は [data/duck/README.md](data/duck/README.md) を参照してください。
+
 
 Shinichi Hirauchi, "Duck Visual Inspection Dataset", 2026.
 https://github.com/furuya02/sagemaker-embedding-ft-visual-inspection
