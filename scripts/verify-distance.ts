@@ -10,7 +10,7 @@ const c = load('cosine-1024');
 let maxDiff = 0;
 const rows = e.rows.map((r: any, i: number) => {
   const cos = c.rows[i].score;
-  // 正規化済みベクトルなら EUCLIDEAN^2 = 2 * COSINE距離
+  // EUCLIDEAN^2 / 2 と COSINE距離の差を確認する
   maxDiff = Math.max(maxDiff, Math.abs(r.score ** 2 - 2 * cos));
   return { id: r.id, euclid: r.score.toFixed(5), cosine: cos.toFixed(5), 'euclid^2/2': (r.score ** 2 / 2).toFixed(5), sameNearest: r.nearest === c.rows[i].nearest };
 });
