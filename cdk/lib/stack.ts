@@ -33,7 +33,7 @@ export class DefectInspectionStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    // 2026-10 時点で CDK L2 / CloudFormation リファレンスに VectorIndexes が無いため L1 に直接書く
+    // 2026-10 時点で CDK L2 にプロパティが無いため L1 に直接書く
     const cfn = table.node.defaultChild as CfnTable;
     // SearchSchema で参照する属性は AttributeDefinitions に定義が必要
     ['product', 'verdict', 'lighting'].forEach((name, i) =>
